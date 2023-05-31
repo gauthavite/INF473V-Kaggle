@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+compressed_dataset/
+train/
+midjourney_train/
+unlabelled/
+test/
+
+*.pkl
+*.pt
+*.csv

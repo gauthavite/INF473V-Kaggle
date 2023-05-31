@@ -1,2 +1,2 @@
 # INF473V-Kaggle
-Leveraging the Zero-Shot Capabilities of the CLIP Model for Weakly Supervised Synthetic Data Classification
+The folder `Stage 1` contains everything related to the first stage of the competition (https://www.kaggle.com/competitions/inf473v-2023-challenge/overview), while the folder `Stage 2` is related to the second stage of the competition (https://www.kaggle.com/competitions/inf473v-2023-challenge-v2/overview).
