@@ -6,7 +6,7 @@ from torchvision import transforms, models
 import torch
 import torch.nn as nn
 
-device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu') #Metal framework for Apple Silicon support
+device = torch.device('mps' if torch.backends.mps.is_available() else ('cuda' if torch.cuda.is_available() else 'cpu')) #Metal framework for Apple Silicon support
 
 data_transforms_eval = transforms.Compose([
     transforms.Resize(224),
@@ -33,16 +33,16 @@ class TestDataset(Dataset):
         return len(self.images_list)
 
 
-test_path = "test"
-train_path = "train"
+test_path = "dataset/test"
+train_path = "dataset/train"
 test_loader = DataLoader(TestDataset(test_path, data_transforms_eval), batch_size=32, shuffle=False)
 
 # Load model and checkpoint
 model_path = 'fixmatch.pt'
-model = models.resnet50(pretrained=True)
+model = models.vit_b_16(pretrained=True)
 num_classes = 10
-num_ftrs = model.fc.in_features
-model.fc = nn.Linear(num_ftrs, num_classes)
+num_ftrs = model.heads.head.in_features
+model.heads.head = nn.Linear(num_ftrs, num_classes)
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
 model.to(device)

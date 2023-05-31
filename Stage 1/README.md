@@ -2,7 +2,7 @@
 In this folder, we use standard methods for semi supervised learning, with standard models built for ImageNet to tacke our problem.
 
 ## Getting started 
-The dataset should be contained in a folder `train` for the labeled data, and a folder `unlabelled` for the unlabelled data. The test data should be in the folder `test`.
+The dataset should be contained in a folder `dataset`, with three subfolders `train`, `unlabelled`, and `test`.
 
 There isn't any specific import required.
 
@@ -11,7 +11,7 @@ Running
 ```bash 
 python fixmatch.py
 ```
-will create a pytorch file `fixmatch.pt`.
+will create a pytorch file `fixmatch.pt` of the fine-tuned model.
 
 You can then run 
 ```bash

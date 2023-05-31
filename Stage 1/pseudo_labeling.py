@@ -10,8 +10,7 @@ import numpy as np
 import os 
 from PIL import Image
 
-data_dir = 'train'
-data_dir_midjourney = 'midjourney_train'
+data_dir = 'dataset/train'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # We need to define a custom Dataset, as the ImageFolder requires folders with the name of the classes
@@ -75,11 +74,10 @@ kfold = KFold(n_splits=k_folds, shuffle=True, random_state=42)
 
 # Load the labeled dataset
 train_dataset = datasets.ImageFolder(data_dir, transform=data_transforms['train'])
-train_dataset_midjourney = datasets.ImageFolder(data_dir_midjourney, transform=data_transforms['val'])
 val_dataset = datasets.ImageFolder(data_dir, transform=data_transforms['val'])
 
 # Load the unlabeled dataset
-unlabeled_data_dir = 'unlabelled'
+unlabeled_data_dir = 'dataset/unlabelled'
 unlabeled_dataset = UnlabeledDataset(unlabeled_data_dir, transform=data_transforms['train'])
 unlabeled_loader = DataLoader(unlabeled_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
 
@@ -119,7 +117,7 @@ for fold, (train_indices, val_indices) in enumerate(kfold.split(train_dataset)):
     train_subset = Subset(train_dataset, train_indices)
     val_subset = Subset(val_dataset, val_indices)
 
-    train_loader = DataLoader(ConcatDataset([train_subset, train_dataset_midjourney]), batch_size=batch_size, shuffle=False, num_workers=4)
+    train_loader = DataLoader(train_subset, batch_size=batch_size, shuffle=False, num_workers=4)
     val_loader = DataLoader(val_subset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     model = models.resnet50(pretrained=True)
@@ -245,7 +243,7 @@ for fold, (train_indices, val_indices) in enumerate(kfold.split(train_dataset)):
 
     torch.save(model.state_dict(), './pseudo_labeling.pt')
 
-print(f'Mean validation accuracy across {k_folds}-fold cross-validation: {np.mean(val_acc_history):.4f}')
+print(f'Mean validation accuracy across {k_folds}-fold cross-validation (optimistic): {np.mean(val_acc_history):.4f}')
 
 # Close the WandB run
 wandb.finish()
