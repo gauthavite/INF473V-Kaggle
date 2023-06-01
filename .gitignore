@@ -6,6 +6,5 @@ midjourney_train/
 unlabelled/
 test/
 
-*.pkl
 *.pt
 *.csv

@@ -17,4 +17,4 @@ You can then run
 ```bash
 python create_submission.py
 ```
-to create the submission.
+to create the submission named `submission.csv`.
