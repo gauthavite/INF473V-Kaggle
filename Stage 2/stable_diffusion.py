@@ -23,7 +23,7 @@ def transform(img,i,prompt):
     im_path = os.path.join(prompt_folder, img)
     print(im_path)
     image = Image.open(im_path)
-    images = pipe(prompt=prompt, image=image, strength=0.75, guidance_scale=2).images
+    images = pipe(prompt=prompt, image=image, strength=0.9, guidance_scale=2).images
     file_name = f"{i}.jpg"
     output_path = os.path.join(prompt_folder, file_name)
     return output_path,images
@@ -34,7 +34,7 @@ device = torch.device('mps' if torch.backends.mps.is_available() else ('cuda' if
 pipe = pipe.to(device)
 pipe.enable_attention_slicing()
 
-prompts = ['platter', 'grenadine', 'toadstool', 'gift shop', 'digital subscriber line', 'Conestoga wagon', 'Rhone wine', 'squash racket', 'bearberry', 'couscous', 'peahen', 'Habenaria_bifolia', 'florist', 'tragopan', 'flash', 'shovel', 'guava', 'waldmeister', 'drawing room', 'carbine', 'veloute', 'Entoloma lividum', 'bat', 'damask violet', 'ceriman', 'steering wheel', 'cupola', 'Salvelinus fontinalis', 'spiderwort', 'cotton candy', 'snowboard', 'Rhododendron viscosum', 'control room', 'pinwheel', 'plunge', 'silkworm', 'swamp chestnut oak', 'zinfandel', 'brick red', 'ethyl alcohol', 'hammer', 'black-tailed deer ', 'duckling', 'floss', 'kingfish', 'organ loft', 'vintage', 'gosling']
+prompts = ['bat','platter', 'grenadine', 'toadstool', 'gift shop', 'digital subscriber line', 'Conestoga wagon', 'Rhone wine', 'squash racket', 'bearberry', 'couscous', 'peahen', 'Habenaria_bifolia', 'florist', 'tragopan', 'flash', 'shovel', 'guava', 'waldmeister', 'drawing room', 'carbine', 'veloute', 'Entoloma lividum', 'damask violet', 'ceriman', 'steering wheel', 'cupola', 'Salvelinus fontinalis', 'spiderwort', 'cotton candy', 'snowboard', 'Rhododendron viscosum', 'control room', 'pinwheel', 'plunge', 'silkworm', 'swamp chestnut oak', 'zinfandel', 'brick red', 'ethyl alcohol', 'hammer', 'black-tailed deer ', 'duckling', 'floss', 'kingfish', 'organ loft', 'vintage', 'gosling']
 
 dataset_folder = "./compressed_dataset/train"
 
@@ -46,7 +46,7 @@ for prompt in prompts :
 		output_path, images = transform(img,i,prompt)
 		image = images[0]
 		while is_image_all_black(image):
-			output_path, images = transform(img,i)
+			output_path, images = transform(img,i, prompt)
 			image = images[0]
 		image.save(output_path)
 		i+=1
