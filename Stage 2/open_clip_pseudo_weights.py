@@ -226,7 +226,7 @@ for i, (train_indices, test_indices) in enumerate(sss.split(labels, labels)):
             f"val_loss_nw: {val_loss_nw:.4f} acc: {100 * acc:.2f}")
 
         # Log training loss and accuracy to WandB
-        wandb.log({'training loss': running_loss, 'val_loss': val_loss.item(), 'val_accuracy': acc})
+        wandb.log({'training loss': running_loss, 'val_loss': val_loss, 'val_accuracy': acc})
     accuracies.append(acc)
 
 print("Average accuracy over", N_SPLITS, "folds :", np.array(accuracies).mean())
