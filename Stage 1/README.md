@@ -1,4 +1,4 @@
-# Stage 2 Competition
+# Stage 1 Competition
 In this folder, we use standard methods for semi supervised learning, with standard models built for ImageNet to tacke our problem.
 
 ## Getting started 
