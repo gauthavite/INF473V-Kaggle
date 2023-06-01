@@ -30,11 +30,11 @@ Then, you can run
 ```bash
 python create_open_clip_submission.py
 ```
-which will create the Kaggle submission for the FixMatch model.
+which will create the Kaggle submission (named `submission_open_clip_fixmatch.csv`) for the FixMatch model.
 
 
 ## Second Model : CLIP fine-tuned with pseudo labeling and weighted function
-You can directly create the submission of this model by typing 
+You can directly create the submission of this model (named `submission_pseudo_weighted.csv`) by typing 
 ```bash
 python open_clip_pseudo_weights.py
 ```
